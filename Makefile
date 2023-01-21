@@ -6,9 +6,16 @@
 #    By: ogorfti < ogorfti@student.1337.ma >        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 16:33:33 by ogorfti           #+#    #+#              #
-#    Updated: 2023/01/19 19:16:26 by ogorfti          ###   ########.fr        #
+#    Updated: 2023/01/21 19:20:04 by ogorfti          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+#If you use the same variable names for different targets in your makefile, it
+#will overwrite the previous definition of that variable and the previous build
+#will not be taken into consideration when the new target is built. This may 
+#cause the previous build to be relinked again, even if it has not been modified.
+#To avoid this, you can use different variable names for different 
+#targets, or you can use pattern rules to make the build process more efficient.
 
 CC = cc
 
@@ -16,33 +23,37 @@ CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -f
 
+LIBR = ft_printf/libftprintf.a
+
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all : client server
 
-client : client.o
-	$(CC) $(CFLAGS) client.o -o client
+client : client.o 
+	make -C ft_printf
+	$(CC) $(CFLAGS) client.o ft_printf/libftprintf.a -o client
 
 server : server.o
-	$(CC) $(CFLAGS) server.o -o server
-
-client_bonus : client_bonus.o
-	$(CC) $(CFLAGS) client_bonus.o -o client
-
-server_bonus : server_bonus.o
-	$(CC) $(CFLAGS) server_bonus.o -o server
+	make -C ft_printf
+	$(CC) $(CFLAGS) server.o ft_printf/libftprintf.a -o server
 
 bonus : client_bonus server_bonus
 
+client_bonus : client_bonus.o
+	make -C ft_printf
+	$(CC) $(CFLAGS) client_bonus.o ft_printf/libftprintf.a -o client_bonus
+
+server_bonus : server_bonus.o
+	make -C ft_printf
+	$(CC) $(CFLAGS) server_bonus.o ft_printf/libftprintf.a -o server_bonus
+
 clean :
+		make clean -C ft_printf
 		$(RM) server.o client.o client_bonus.o server_bonus.o
 
 fclean : clean
-		$(RM) server client
+		$(RM) server client client_bonus server_bonus
+		make fclean -C ft_printf
 
 re : fclean all
-
-me : all clean
-
-be : bonus clean

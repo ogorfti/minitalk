@@ -6,24 +6,21 @@
 /*   By: ogorfti < ogorfti@student.1337.ma >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:05:11 by ogorfti           #+#    #+#             */
-/*   Updated: 2023/01/21 15:40:08 by ogorfti          ###   ########.fr       */
+/*   Updated: 2023/01/21 21:30:43 by ogorfti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
 #include <signal.h>
-#include <stdlib.h>
-#include <string.h>
+#include "ft_printf/ft_printf.h"
 
-int mini_atoi(char *str)
+int	mini_atoi(char *str)
 {
 	int	i;
-	int r;
-	
+	int	r;
+
 	i = 0;
 	r = 0;
-	while(str[i])
+	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
 	{
 		r = r * 10;
 		r = r + str[i] - '0';
@@ -45,7 +42,7 @@ int	ft_strlen(char *str)
 void	handle_message(int sig)
 {
 	if (sig == SIGUSR1)
-		write(1, "All strings have been received\n", 32);
+		ft_printf("All strings have been received\n");
 }
 
 void	ft_shift(char c, pid_t pid)
@@ -70,7 +67,9 @@ int	main(int ac, char **av)
 	int		i;
 
 	i = 0;
-	pid = atoi(av[1]);
+	pid = mini_atoi(av[1]);
+	if (pid <= 1)
+		exit(1);
 	signal (SIGUSR1, handle_message);
 	if (ac == 3)
 	{

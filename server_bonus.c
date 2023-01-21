@@ -6,14 +6,12 @@
 /*   By: ogorfti < ogorfti@student.1337.ma >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:05:23 by ogorfti           #+#    #+#             */
-/*   Updated: 2023/01/21 16:55:02 by ogorfti          ###   ########.fr       */
+/*   Updated: 2023/01/21 19:19:08 by ogorfti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
 #include <signal.h>
-#include <stdlib.h>
+#include "ft_printf/ft_printf.h"
 
 static pid_t	g_oldpid;
 
@@ -85,7 +83,7 @@ int	main(void)
 {
 	struct sigaction	sa;
 
-	printf("Process ID : %d\n", getpid());
+	ft_printf("Process ID : %d\n", getpid());
 	sa.sa_sigaction = &signal_handler;
 	sa.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &sa, NULL);
