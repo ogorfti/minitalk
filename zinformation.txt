@@ -1,0 +1,65 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    information.txt                                    :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ogorfti < ogorfti@student.1337.ma >        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/01/18 11:29:02 by ogorfti           #+#    #+#              #
+#    Updated: 2023/01/18 14:05:06 by ogorfti          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+-> fork() :
+The fork() function in C creates a new process by duplicating the calling process
+also known as the parent process. The new process, called the child process, is
+an exact copy of the parent process, . The child process starts executing from the
+same point where the fork() function was called.
+
+-> pid_t :
+The pid_t data type is used to store the process ID of a process. In most systems,
+pid_t is defined as an int, but it's important to use pid_t instead of int when dealing
+with process IDs to ensure that the program will work correctly on different systems.
+
+-> kill :
+The kill signal in C is used to send a signal to a process to terminate it or to
+request it to perform a specific action.
+
+-> sigaction :
+the sigaction structure is used to specify the action to take when a specific signal
+is received by a process.
+
+-> hook :
+a "hook" typically refers to a function that is registered to be called (or "hooked")
+when a specific signal is received by a process. This function, known as a signal handler,
+can be used to perform specific actions in response to the signal.
+
+-> SIGSTOP and SIGSTP :
+SIGSTOP is used to permanently stop a process, while SIGSTP is used to temporarily stop a
+process.
+
+-> sigaction() and signal() :
+The sigaction() function and the signal() function in C are used to specify the action
+to be taken when a specific signal is received by a process, but they have some important
+differences:
+    . sigaction() is a more advanced version of the signal() function and provides more
+    flexibility and control over the handling of signals. It allows you to specify a handler
+    function to be called when a specific signal is received, as well as providing more
+    information about the signal and the state of the process when the signal was
+    received.
+    .  signal() is a simpler version of the sigaction() function and it's less powerful. It 
+    allows you to specify a handler function to be called when a specific signal is received,
+    but it doesn't provide as much information about the signal or the state of the process
+    when the signal was received.
+
+-> hint :
+a hint generally refers to a piece of information or suggestion provided by the operating
+system or runtime to the program about an upcoming event or condition. For example, some
+signals can be considered as hints about the system state, such as SIGSEGV(segmentation fault)
+which is sent to a process when it has accessed memory that it should not have. This signal
+is a hint that the process has caused an error and should be terminated or corrected.
+
+-> SIGUSR1 and SIGUSR2 :
+SIGUSR1 and SIGUSR2 are two signals in C that are reserved for user-defined purposes. They are
+not used by the operating system or the C library for any specific purpose, which means that
+you can use them for any purpose you want in your program.
