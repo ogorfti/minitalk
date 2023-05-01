@@ -6,7 +6,7 @@
 #    By: ogorfti < ogorfti@student.1337.ma >        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 16:33:33 by ogorfti           #+#    #+#              #
-#    Updated: 2023/01/21 19:20:04 by ogorfti          ###   ########.fr        #
+#    Updated: 2023/01/26 15:25:48 by ogorfti          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,10 @@
 #cause the previous build to be relinked again, even if it has not been modified.
 #To avoid this, you can use different variable names for different 
 #targets, or you can use pattern rules to make the build process more efficient.
+
+NAME = client
+
+NAME1 = server
 
 CC = cc
 
@@ -28,15 +32,15 @@ LIBR = ft_printf/libftprintf.a
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-all : client server
+all : $(NAME) $(NAME1)
 
-client : client.o 
+$(NAME) : client.o
 	make -C ft_printf
-	$(CC) $(CFLAGS) client.o ft_printf/libftprintf.a -o client
+	$(CC) $(CFLAGS) client.o ft_printf/libftprintf.a -o $(NAME)
 
-server : server.o
+$(NAME1) : server.o
 	make -C ft_printf
-	$(CC) $(CFLAGS) server.o ft_printf/libftprintf.a -o server
+	$(CC) $(CFLAGS) server.o ft_printf/libftprintf.a -o $(NAME1)
 
 bonus : client_bonus server_bonus
 

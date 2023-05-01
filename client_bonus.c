@@ -6,7 +6,7 @@
 /*   By: ogorfti < ogorfti@student.1337.ma >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:05:11 by ogorfti           #+#    #+#             */
-/*   Updated: 2023/01/22 13:57:32 by ogorfti          ###   ########.fr       */
+/*   Updated: 2023/01/27 20:11:16 by ogorfti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void	ft_shift(char c, pid_t pid)
 	i = 7;
 	while (i >= 0)
 	{
+		if (kill(pid, 0) == -1)
+		{
+			ft_printf("You're not writing the right PID!\n");
+			exit (1);
+		}
 		if ((c & (1 << i)) != 0)
 			kill(pid, SIGUSR1);
 		else
@@ -71,7 +76,7 @@ int	main(int ac, char **av)
 	{
 		if (!mini_atoi(av[1]))
 		{
-			ft_printf("Wrong PID!\n");
+			ft_printf("You're not writing the right PID!\n");
 			exit (1);
 		}
 		while (i <= ft_strlen(av[2]))
@@ -81,6 +86,6 @@ int	main(int ac, char **av)
 		}
 	}
 	else
-		ft_printf("ERROR\n");
+		ft_printf("Alert! ./client_bonus [PID] [string]\n");
 	return (0);
 }

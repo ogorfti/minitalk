@@ -6,7 +6,7 @@
 /*   By: ogorfti < ogorfti@student.1337.ma >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:33:30 by ogorfti           #+#    #+#             */
-/*   Updated: 2023/01/22 13:57:20 by ogorfti          ###   ########.fr       */
+/*   Updated: 2023/01/26 15:27:18 by ogorfti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	ft_send_char(char c, pid_t pid)
 	i = 7;
 	while (i >= 0)
 	{
+		if (kill(pid, 0) == -1)
+		{
+			ft_printf("You're not writing the right PID!\n");
+			exit (1);
+		}
 		if (c & (1 << i))
 			kill(pid, SIGUSR1);
 		else
@@ -55,7 +60,7 @@ int	main(int ac, char **av)
 	{
 		if (!mini_atoi(av[1]))
 		{
-			ft_printf("Wrong PID!\n");
+			ft_printf("You're not writing the right PID!\n");
 			exit (1);
 		}
 		while (av[2][i])
@@ -65,6 +70,6 @@ int	main(int ac, char **av)
 		}
 	}
 	else
-		ft_printf("ERROR\n");
+		ft_printf("Alert format! ./client [server PID] [string must send it]\n");
 	return (0);
 }
